@@ -1,0 +1,382 @@
+/* ========================================
+   SIGNUP PAGE
+======================================== */
+
+.auth-container {
+  min-height: 100vh;
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0f172a,
+      #1e293b,
+      #334155
+    );
+}
+
+
+/* ========================================
+   SIGNUP BOX
+======================================== */
+
+.auth-box {
+  width: 400px;
+
+  max-width: 100%;
+
+  padding: 35px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3);
+
+  animation: signupBox 0.5s ease;
+}
+
+
+/* ========================================
+   BOX ANIMATION
+======================================== */
+
+@keyframes signupBox {
+
+  from {
+    opacity: 0;
+
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+
+/* ========================================
+   HEADING
+======================================== */
+
+.auth-box h1 {
+  text-align: center;
+
+  margin: 0 0 28px 0;
+
+  color: #0f172a;
+
+  font-size: 30px;
+
+  font-weight: 700;
+}
+
+
+/* ========================================
+   FORM
+======================================== */
+
+.auth-box form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+
+/* ========================================
+   INPUT
+======================================== */
+
+.auth-box input {
+  width: 100%;
+
+  height: 48px;
+
+  padding: 13px 14px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #0f172a;
+
+  font-size: 15px;
+
+  transition: all 0.3s ease;
+}
+
+
+/* ========================================
+   INPUT PLACEHOLDER
+======================================== */
+
+.auth-box input::placeholder {
+  color: #94a3b8;
+}
+
+
+/* ========================================
+   INPUT FOCUS
+======================================== */
+
+.auth-box input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.12);
+
+  background: #ffffff;
+}
+
+
+/* ========================================
+   ROLE SELECT
+======================================== */
+
+.auth-box select {
+  width: 100%;
+
+  height: 48px;
+
+  padding: 0 14px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #0f172a;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+
+/* ========================================
+   SELECT FOCUS
+======================================== */
+
+.auth-box select:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+
+/* ========================================
+   SELECT OPTION
+======================================== */
+
+.auth-box select option {
+  background: #ffffff;
+
+  color: #0f172a;
+
+  padding: 10px;
+}
+
+
+/* ========================================
+   SIGNUP BUTTON
+======================================== */
+
+.auth-box button[type="submit"] {
+  width: 100%;
+
+  height: 48px;
+
+  padding: 13px;
+
+  margin-top: 2px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+
+/* ========================================
+   BUTTON HOVER
+======================================== */
+
+.auth-box button[type="submit"]:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(37, 99, 235, 0.3);
+}
+
+
+/* ========================================
+   BUTTON ACTIVE
+======================================== */
+
+.auth-box button[type="submit"]:active {
+  transform: translateY(0);
+
+  box-shadow: none;
+}
+
+
+/* ========================================
+   BOTTOM TEXT
+======================================== */
+
+.auth-box p {
+  text-align: center;
+
+  margin: 20px 0 0 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* ========================================
+   LOGIN LINK
+======================================== */
+
+.auth-box a {
+  margin-left: 6px;
+
+  color: #2563eb;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: 0.3s;
+}
+
+
+/* ========================================
+   LOGIN LINK HOVER
+======================================== */
+
+.auth-box a:hover {
+  color: #1d4ed8;
+
+  text-decoration: underline;
+}
+
+
+/* ========================================
+   MOBILE RESPONSIVE
+======================================== */
+
+@media (max-width: 500px) {
+
+  .auth-container {
+    padding: 15px;
+  }
+
+
+  .auth-box {
+    width: 100%;
+
+    padding: 25px 20px;
+
+    border-radius: 12px;
+  }
+
+
+  .auth-box h1 {
+    font-size: 26px;
+
+    margin-bottom: 23px;
+  }
+
+
+  .auth-box input {
+    height: 46px;
+
+    font-size: 14px;
+  }
+
+
+  .auth-box select {
+    height: 46px;
+
+    font-size: 14px;
+  }
+
+
+  .auth-box button[type="submit"] {
+    height: 46px;
+
+    font-size: 14px;
+  }
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 350px) {
+
+  .auth-container {
+    padding: 10px;
+  }
+
+
+  .auth-box {
+    padding: 22px 16px;
+  }
+
+
+  .auth-box h1 {
+    font-size: 24px;
+  }
+
+}

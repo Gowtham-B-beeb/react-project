@@ -1,0 +1,412 @@
+/* ========================================
+   GLOBAL
+======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+
+  padding: 0;
+
+  min-height: 100%;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+
+/* ========================================
+   BODY
+======================================== */
+
+body {
+  background: #f8fafc;
+
+  color: #0f172a;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+
+/* ========================================
+   DARK MODE BODY
+======================================== */
+
+body.dark-mode {
+  background: #0f172a;
+
+  color: #ffffff;
+}
+
+
+/* ========================================
+   LAYOUT
+======================================== */
+
+body.dark-mode .layout,
+body.dark-mode .main-content {
+  background: #0f172a;
+}
+
+
+/* ========================================
+   DASHBOARD
+======================================== */
+
+body.dark-mode .dashboard-page {
+  background: #0f172a;
+}
+
+body.dark-mode .dashboard-header h1,
+body.dark-mode .dashboard-section h2,
+body.dark-mode .dashboard-card h2,
+body.dark-mode .dashboard-card h3 {
+  color: #ffffff;
+}
+
+body.dark-mode .dashboard-header p {
+  color: #94a3b8;
+}
+
+body.dark-mode .dashboard-card,
+body.dark-mode .dashboard-section {
+  background: #1e293b;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .overview-grid div {
+  border-color: #475569;
+}
+
+body.dark-mode .overview-grid span {
+  color: #94a3b8;
+}
+
+body.dark-mode .overview-grid strong {
+  color: #ffffff;
+}
+
+
+/* ========================================
+   STUDENTS
+======================================== */
+
+body.dark-mode .students-page {
+  background: #0f172a;
+}
+
+body.dark-mode .students-page h1,
+body.dark-mode .student-form h2,
+body.dark-mode .student-list h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .student-form,
+body.dark-mode .student-list {
+  background: #1e293b;
+
+  color: #ffffff;
+}
+
+body.dark-mode .student-list th {
+  background: #334155;
+
+  color: #ffffff;
+}
+
+body.dark-mode .student-list td {
+  color: #cbd5e1;
+
+  border-color: #475569;
+}
+
+body.dark-mode .student-form input {
+  background: #0f172a;
+
+  color: #ffffff;
+
+  border-color: #475569;
+}
+
+body.dark-mode .view-message {
+  background: #1e3a8a;
+
+  color: #dbeafe;
+}
+
+
+/* ========================================
+   TRAINERS
+======================================== */
+
+body.dark-mode .trainers-page {
+  background: #0f172a;
+}
+
+body.dark-mode .trainers-page h1,
+body.dark-mode .trainer-form h2,
+body.dark-mode .trainer-list h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .trainer-form,
+body.dark-mode .trainer-list {
+  background: #1e293b;
+
+  color: #ffffff;
+}
+
+body.dark-mode .trainer-list th {
+  background: #334155;
+
+  color: #ffffff;
+}
+
+body.dark-mode .trainer-list td {
+  color: #cbd5e1;
+
+  border-color: #475569;
+}
+
+body.dark-mode .trainer-form input {
+  background: #0f172a;
+
+  color: #ffffff;
+
+  border-color: #475569;
+}
+
+
+/* ========================================
+   COURSES
+======================================== */
+
+body.dark-mode .courses-page {
+  background: #0f172a;
+}
+
+body.dark-mode .courses-header h1 {
+  color: #ffffff;
+}
+
+body.dark-mode .courses-header p {
+  color: #94a3b8;
+}
+
+body.dark-mode .course-form-card,
+body.dark-mode .course-table-card {
+  background: #1e293b;
+}
+
+body.dark-mode .course-form-card h2,
+body.dark-mode .course-table-card h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .input-group label {
+  color: #cbd5e1;
+}
+
+body.dark-mode .input-group input {
+  background: #0f172a;
+
+  color: #ffffff;
+
+  border-color: #475569;
+}
+
+body.dark-mode .course-table-card th {
+  background: #334155;
+
+  color: #ffffff;
+}
+
+body.dark-mode .course-table-card td {
+  color: #cbd5e1;
+
+  border-color: #475569;
+}
+
+
+/* ========================================
+   ATTENDANCE
+======================================== */
+
+body.dark-mode .attendance-page {
+  background: #0f172a;
+}
+
+body.dark-mode .attendance-page h1 {
+  color: #ffffff;
+}
+
+body.dark-mode .attendance-subtitle {
+  color: #94a3b8;
+}
+
+body.dark-mode .attendance-form,
+body.dark-mode .attendance-list {
+  background: #1e293b;
+}
+
+body.dark-mode .attendance-form h2,
+body.dark-mode .attendance-list h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .input-group label {
+  color: #cbd5e1;
+}
+
+body.dark-mode .input-group input,
+body.dark-mode .input-group select {
+  background: #0f172a;
+
+  color: #ffffff;
+
+  border-color: #475569;
+}
+
+body.dark-mode .attendance-list th {
+  background: #334155;
+
+  color: #ffffff;
+}
+
+body.dark-mode .attendance-list td {
+  color: #cbd5e1;
+
+  border-color: #475569;
+}
+
+
+/* ========================================
+   PAYMENTS
+======================================== */
+
+body.dark-mode .payments-page {
+  background: #0f172a;
+}
+
+body.dark-mode .payments-header h1 {
+  color: #ffffff;
+}
+
+body.dark-mode .payments-header p {
+  color: #94a3b8;
+}
+
+body.dark-mode .payment-form-card,
+body.dark-mode .payment-list-card {
+  background: #1e293b;
+}
+
+body.dark-mode .payment-form-card h2,
+body.dark-mode .payment-list-card h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .payment-group label {
+  color: #cbd5e1;
+}
+
+body.dark-mode .payment-group input,
+body.dark-mode .payment-group select {
+  background: #0f172a;
+
+  color: #ffffff;
+
+  border-color: #475569;
+}
+
+body.dark-mode .payment-list-card th {
+  background: #334155;
+
+  color: #ffffff;
+}
+
+body.dark-mode .payment-list-card td {
+  color: #cbd5e1;
+
+  border-color: #475569;
+}
+
+body.dark-mode .no-payments {
+  background: #334155;
+
+  color: #cbd5e1;
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+body.dark-mode .sidebar {
+  background: #1e293b;
+
+  border-color: #334155;
+}
+
+body.dark-mode .sidebar-link {
+  color: #cbd5e1;
+}
+
+body.dark-mode .sidebar-link:hover {
+  background: #334155;
+
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-title h3 {
+  color: #64748b;
+}
+
+
+/* ========================================
+   SETTINGS
+======================================== */
+
+body.dark-mode .settings-page {
+  background: #0f172a;
+}
+
+
+/* ========================================
+   SMOOTH TRANSITION
+======================================== */
+
+body,
+.layout,
+.main-content,
+.sidebar,
+.dashboard-card,
+.dashboard-section,
+.student-form,
+.student-list,
+.trainer-form,
+.trainer-list,
+.course-form-card,
+.course-table-card,
+.attendance-form,
+.attendance-list,
+.payment-form-card,
+.payment-list-card,
+.settings-card {
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}   

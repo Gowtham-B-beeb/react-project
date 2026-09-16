@@ -1,0 +1,373 @@
+* {
+  box-sizing: border-box;
+}
+
+
+
+
+.layout {
+  min-height: 100vh;
+
+  background: #f8fafc;
+}
+
+
+
+
+.navbar {
+  height: 70px;
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 0 25px;
+
+  background: #0f172a;
+
+  color: white;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 1000;
+}
+
+
+/* ========================================
+   NAVBAR LEFT
+======================================== */
+
+.navbar-left h2 {
+  margin: 0;
+
+  font-size: 21px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.3px;
+}
+
+
+/* ========================================
+   NAVBAR RIGHT
+======================================== */
+
+.navbar-right {
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+
+/* ========================================
+   USER INFO
+======================================== */
+
+.user-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.user-avatar {
+  width: 40px;
+
+  height: 40px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+
+  color: white;
+
+  font-weight: 700;
+
+  font-size: 17px;
+}
+
+
+.user-details {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+
+.user-details strong {
+  font-size: 14px;
+
+  color: white;
+}
+
+
+.user-details span {
+  font-size: 12px;
+
+  color: #94a3b8;
+}
+
+
+/* ========================================
+   LOGOUT
+======================================== */
+
+.logout-btn {
+  padding: 9px 16px;
+
+  border: 1px solid #475569;
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+
+.logout-btn:hover {
+  background: #ef4444;
+
+  border-color: #ef4444;
+}
+
+
+/* ========================================
+   LAYOUT BODY
+======================================== */
+
+.layout-body {
+  display: flex;
+
+  min-height: calc(100vh - 70px);
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+.sidebar {
+  width: 230px;
+
+  min-height: calc(100vh - 70px);
+
+  padding: 25px 15px;
+
+  background: #ffffff;
+
+  border-right: 1px solid #e2e8f0;
+
+  position: sticky;
+
+  top: 70px;
+
+  align-self: flex-start;
+}
+
+
+/* ========================================
+   SIDEBAR TITLE
+======================================== */
+
+.sidebar-title {
+  padding: 0 12px;
+
+  margin-bottom: 15px;
+}
+
+
+.sidebar-title h3 {
+  margin: 0;
+
+  font-size: 11px;
+
+  color: #94a3b8;
+
+  letter-spacing: 1px;
+}
+
+
+/* ========================================
+   SIDEBAR LINK
+======================================== */
+
+.sidebar-link {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  width: 100%;
+
+  padding: 12px;
+
+  margin-bottom: 6px;
+
+  border-radius: 7px;
+
+  color: #475569;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  transition: 0.3s;
+}
+
+
+.sidebar-link span {
+  width: 22px;
+
+  text-align: center;
+
+  font-size: 16px;
+}
+
+
+.sidebar-link:hover {
+  background: #eff6ff;
+
+  color: #2563eb;
+}
+
+
+/* ========================================
+   ACTIVE LINK
+======================================== */
+
+.sidebar-link.active {
+  background: #2563eb;
+
+  color: white;
+
+  font-weight: 600;
+}
+
+
+.sidebar-link.active:hover {
+  background: #1d4ed8;
+
+  color: white;
+}
+
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+
+.main-content {
+  flex: 1;
+
+  min-width: 0;
+
+  background: #f8fafc;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 700px) {
+
+  .navbar {
+    height: 65px;
+
+    padding: 0 15px;
+  }
+
+
+  .navbar-left h2 {
+    font-size: 17px;
+  }
+
+
+  .navbar-right {
+    gap: 10px;
+  }
+
+
+  .user-details {
+    display: none;
+  }
+
+
+  .user-avatar {
+    width: 36px;
+
+    height: 36px;
+  }
+
+
+  .logout-btn {
+    padding: 8px 11px;
+
+    font-size: 12px;
+  }
+
+
+  .layout-body {
+    min-height: calc(100vh - 65px);
+  }
+
+
+  .sidebar {
+    width: 65px;
+
+    min-height: calc(100vh - 65px);
+
+    padding: 20px 8px;
+
+    top: 65px;
+  }
+
+
+  .sidebar-title {
+    display: none;
+  }
+
+
+  .sidebar-link {
+    justify-content: center;
+
+    padding: 12px 5px;
+
+    font-size: 0;
+  }
+
+
+  .sidebar-link span {
+    font-size: 19px;
+  }
+
+}

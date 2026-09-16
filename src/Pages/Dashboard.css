@@ -1,0 +1,311 @@
+/* ========================================
+   DASHBOARD PAGE
+======================================== */
+
+.dashboard-page {
+  padding: 30px;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 30px;
+}
+
+.dashboard-header p {
+  margin-top: 8px;
+
+  color: #64748b;
+
+  font-size: 15px;
+}
+
+
+/* ========================================
+   ROLE BADGE
+======================================== */
+
+.role-badge {
+  padding: 10px 18px;
+
+  border-radius: 20px;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+
+/* ========================================
+   DASHBOARD CARDS
+======================================== */
+
+.dashboard-cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 20px;
+
+  margin-bottom: 30px;
+}
+
+
+.dashboard-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 22px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.08);
+
+  transition: 0.3s;
+}
+
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 12px 30px
+    rgba(0, 0, 0, 0.12);
+}
+
+
+/* ========================================
+   CARD ICON
+======================================== */
+
+.card-icon {
+  width: 50px;
+
+  height: 50px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  border-radius: 10px;
+
+  background: #eff6ff;
+
+  font-size: 24px;
+}
+
+
+/* ========================================
+   CARD TEXT
+======================================== */
+
+.dashboard-card h3 {
+  margin: 0 0 5px;
+
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+
+.dashboard-card h2 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 25px;
+}
+
+
+/* ========================================
+   SECTION
+======================================== */
+
+.dashboard-section {
+  padding: 25px;
+
+  margin-bottom: 25px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.08);
+}
+
+
+.dashboard-section h2 {
+  margin: 0 0 20px;
+
+  color: #0f172a;
+}
+
+
+/* ========================================
+   ACCESS BOX
+======================================== */
+
+.access-box {
+  padding: 20px;
+
+  border-radius: 10px;
+}
+
+
+.access-box h3 {
+  margin-top: 0;
+
+  margin-bottom: 10px;
+}
+
+
+.access-box p {
+  margin: 7px 0;
+
+  font-size: 14px;
+}
+
+
+/* ADMIN */
+
+.admin-access {
+  background: #eff6ff;
+
+  color: #1e40af;
+}
+
+
+/* NORMAL USER */
+
+.normal-access {
+  background: #f8fafc;
+
+  color: #475569;
+}
+
+
+/* ========================================
+   OVERVIEW GRID
+======================================== */
+
+.overview-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 15px;
+}
+
+
+.overview-grid div {
+  padding: 20px;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 10px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.overview-grid span {
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+
+.overview-grid strong {
+  color: #0f172a;
+
+  font-size: 24px;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1000px) {
+
+  .dashboard-cards {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .overview-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 700px) {
+
+  .dashboard-page {
+    padding: 15px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 25px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-section {
+    padding: 20px;
+  }
+
+}
