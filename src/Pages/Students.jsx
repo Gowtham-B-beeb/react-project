@@ -4,7 +4,6 @@ import "./Students.css";
 
 function Students() {
 
-  // Get logged-in user's role
   const { role } = useContext(AuthContext);
 
   // =========================
@@ -53,6 +52,23 @@ function Students() {
 
   const [search, setSearch] = useState("");
 
+  // =========================
+  // CUSTOM ALERT
+  // =========================
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("success");
+
+  const showAlert = (message, type = "success") => {
+
+    setAlertMessage(message);
+    setAlertType(type);
+
+    setTimeout(() => {
+      setAlertMessage("");
+    }, 2500);
+  };
+
 
   // =========================
   // ADD / UPDATE STUDENT
@@ -62,16 +78,18 @@ function Students() {
 
     e.preventDefault();
 
-    // Only Admin can add/update
     if (role !== "admin") {
-      alert("Only Admin can add or update students");
+
+      showAlert(
+        "Only Admin can add or update students",
+        "warning"
+      );
+
       return;
     }
 
 
-    // =========================
     // UPDATE
-    // =========================
 
     if (editId) {
 
@@ -96,15 +114,16 @@ function Students() {
         JSON.stringify(updatedStudents)
       );
 
-      alert("Student updated successfully!");
+      showAlert(
+        "Student updated successfully!",
+        "success"
+      );
 
       setEditId(null);
     }
 
 
-    // =========================
     // ADD
-    // =========================
 
     else {
 
@@ -129,11 +148,15 @@ function Students() {
         JSON.stringify(updatedStudents)
       );
 
-      alert("Student added successfully!");
+      showAlert(
+        "Student added successfully!",
+        "success"
+      );
     }
 
 
     // Clear form
+
     setName("");
     setEmail("");
     setPhone("");
@@ -149,7 +172,12 @@ function Students() {
   const handleEdit = (student) => {
 
     if (role !== "admin") {
-      alert("Only Admin can edit students");
+
+      showAlert(
+        "Only Admin can edit students",
+        "warning"
+      );
+
       return;
     }
 
@@ -170,9 +198,15 @@ function Students() {
   const handleDelete = (id) => {
 
     if (role !== "admin") {
-      alert("Only Admin can delete students");
+
+      showAlert(
+        "Only Admin can delete students",
+        "warning"
+      );
+
       return;
     }
+
 
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this student?"
@@ -181,6 +215,7 @@ function Students() {
     if (!confirmDelete) {
       return;
     }
+
 
     const updatedStudents = students.filter(
       (student) => student.id !== id
@@ -193,7 +228,10 @@ function Students() {
       JSON.stringify(updatedStudents)
     );
 
-    alert("Student deleted successfully!");
+    showAlert(
+      "Student deleted successfully!",
+      "success"
+    );
   };
 
 
@@ -230,8 +268,31 @@ function Students() {
     <div className="students-page">
 
       {/* =========================
-          PAGE HEADER
+          CUSTOM ALERT
       ========================= */}
+
+      {alertMessage && (
+
+        <div className={`students-alert ${alertType}`}>
+
+          <span>
+            {alertMessage}
+          </span>
+
+          <button
+            onClick={() =>
+              setAlertMessage("")
+            }
+          >
+            ×
+          </button>
+
+        </div>
+
+      )}
+
+
+      {/* PAGE HEADER */}
 
       <div className="page-header">
 
@@ -248,9 +309,7 @@ function Students() {
       </div>
 
 
-      {/* =========================
-          ADMIN FORM
-      ========================= */}
+      {/* ADMIN FORM */}
 
       {role === "admin" && (
 
@@ -265,8 +324,6 @@ function Students() {
 
           <form onSubmit={handleSubmit}>
 
-            {/* NAME */}
-
             <input
               type="text"
               placeholder="Student Name"
@@ -277,8 +334,6 @@ function Students() {
               required
             />
 
-
-            {/* EMAIL */}
 
             <input
               type="email"
@@ -291,8 +346,6 @@ function Students() {
             />
 
 
-            {/* PHONE */}
-
             <input
               type="text"
               placeholder="Phone"
@@ -303,8 +356,6 @@ function Students() {
               required
             />
 
-
-            {/* COURSE DROPDOWN */}
 
             <select
               value={course}
@@ -317,7 +368,6 @@ function Students() {
               <option value="">
                 Select Course
               </option>
-
 
               {courses.length === 0 ? (
 
@@ -350,8 +400,6 @@ function Students() {
             </select>
 
 
-            {/* TRAINER DROPDOWN */}
-
             <select
               value={trainer}
               onChange={(e) =>
@@ -363,7 +411,6 @@ function Students() {
               <option value="">
                 Select Trainer
               </option>
-
 
               {trainers.length === 0 ? (
 
@@ -395,8 +442,6 @@ function Students() {
             </select>
 
 
-            {/* SUBMIT BUTTON */}
-
             <button type="submit">
 
               {editId
@@ -412,9 +457,7 @@ function Students() {
       )}
 
 
-      {/* =========================
-          NORMAL USER MESSAGE
-      ========================= */}
+      {/* NORMAL USER MESSAGE */}
 
       {role !== "admin" && (
 
@@ -430,9 +473,7 @@ function Students() {
       )}
 
 
-      {/* =========================
-          SEARCH
-      ========================= */}
+      {/* SEARCH */}
 
       <div className="search-box">
 
@@ -448,9 +489,7 @@ function Students() {
       </div>
 
 
-      {/* =========================
-          RESULT COUNT
-      ========================= */}
+      {/* RESULT COUNT */}
 
       <p className="result-count">
 
@@ -462,9 +501,7 @@ function Students() {
       </p>
 
 
-      {/* =========================
-          STUDENT TABLE
-      ========================= */}
+      {/* TABLE */}
 
       <div className="table-container">
 
@@ -475,13 +512,9 @@ function Students() {
             <tr>
 
               <th>Name</th>
-
               <th>Email</th>
-
               <th>Phone</th>
-
               <th>Course</th>
-
               <th>Trainer</th>
 
               {role === "admin" && (
@@ -543,8 +576,6 @@ function Students() {
 
                       <td>
 
-                        {/* EDIT */}
-
                         <button
                           className="edit-btn"
                           onClick={() =>
@@ -555,14 +586,10 @@ function Students() {
                         </button>
 
 
-                        {/* DELETE */}
-
                         <button
                           className="delete-btn"
                           onClick={() =>
-                            handleDelete(
-                              student.id
-                            )
+                            handleDelete(student.id)
                           }
                         >
                           Delete

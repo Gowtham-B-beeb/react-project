@@ -16,6 +16,29 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("normal");
 
+  // Custom Alert
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("error");
+
+
+  // =========================
+  // SHOW ALERT
+  // =========================
+
+  const showAlert = (message, type = "error") => {
+
+    setAlertMessage(message);
+    setAlertType(type);
+
+    setTimeout(() => {
+      setAlertMessage("");
+    }, 2500);
+  };
+
+
+  // =========================
+  // SIGNUP
+  // =========================
 
   const handleSignup = (e) => {
 
@@ -27,7 +50,10 @@ function Signup() {
       password === ""
     ) {
 
-      alert("Please fill all fields");
+      showAlert(
+        "Please fill all fields",
+        "warning"
+      );
 
       return;
     }
@@ -43,21 +69,55 @@ function Signup() {
 
     if (!success) {
 
-      alert("Username or Email already exists");
+      showAlert(
+        "Username or Email already exists",
+        "error"
+      );
 
       return;
     }
 
 
-    alert("Signup Successful!");
+    showAlert(
+      "Signup Successful!",
+      "success"
+    );
 
-    navigate("/");
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
 
 
   return (
 
     <div className="auth-container">
+
+      {/* =========================
+          CUSTOM ALERT
+      ========================= */}
+
+      {alertMessage && (
+
+        <div className={`signup-alert ${alertType}`}>
+
+          <span>
+            {alertMessage}
+          </span>
+
+          <button
+            onClick={() =>
+              setAlertMessage("")
+            }
+          >
+            ×
+          </button>
+
+        </div>
+
+      )}
+
 
       <div className="auth-box">
 

@@ -4,16 +4,7 @@ import "./Courses.css";
 
 function Courses() {
 
-  // =========================
-  // GET USER ROLE
-  // =========================
-
   const { role } = useContext(AuthContext);
-
-
-  // =========================
-  // FORM STATES
-  // =========================
 
   const [courseName, setCourseName] = useState("");
   const [description, setDescription] = useState("");
@@ -22,58 +13,44 @@ function Courses() {
   const [fee, setFee] = useState("");
   const [startDate, setStartDate] = useState("");
 
-
-  // =========================
-  // COURSES
-  // =========================
-
   const [courses, setCourses] = useState(
     JSON.parse(localStorage.getItem("courses")) || []
   );
-
-
-  // =========================
-  // TRAINERS
-  // =========================
 
   const [trainers, setTrainers] = useState(
     JSON.parse(localStorage.getItem("trainers")) || []
   );
 
-
-  // =========================
-  // EDIT ID
-  // =========================
-
   const [editId, setEditId] = useState(null);
-
-
-  // =========================
-  // SEARCH
-  // =========================
-
   const [search, setSearch] = useState("");
 
+  // =========================
+  // CUSTOM ALERT
+  // =========================
 
-  // =========================
-  // LOAD TRAINERS
-  // =========================
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("success");
+
+  const showAlert = (message, type = "success") => {
+
+    setAlertMessage(message);
+    setAlertType(type);
+
+    setTimeout(() => {
+      setAlertMessage("");
+    }, 2500);
+  };
+
 
   useEffect(() => {
 
     const savedTrainers =
-      JSON.parse(
-        localStorage.getItem("trainers")
-      ) || [];
+      JSON.parse(localStorage.getItem("trainers")) || [];
 
     setTrainers(savedTrainers);
 
   }, []);
 
-
-  // =========================
-  // SAVE COURSES
-  // =========================
 
   useEffect(() => {
 
@@ -93,21 +70,18 @@ function Courses() {
 
     e.preventDefault();
 
-
-    // Only Admin
     if (role !== "admin") {
 
-      alert(
-        "Only Admin can add or update courses"
+      showAlert(
+        "Only Admin can add or update courses",
+        "warning"
       );
 
       return;
     }
 
 
-    // =========================
-    // UPDATE COURSE
-    // =========================
+    // UPDATE
 
     if (editId) {
 
@@ -128,46 +102,35 @@ function Courses() {
 
       setCourses(updatedCourses);
 
-      alert(
-        "Course updated successfully!"
+      showAlert(
+        "Course updated successfully!",
+        "success"
       );
 
       setEditId(null);
-    }
 
+    } else {
 
-    // =========================
-    // ADD COURSE
-    // =========================
-
-    else {
+      // ADD
 
       const newCourse = {
-
         id: Date.now(),
-
         courseName,
-
         description,
-
         trainer,
-
         duration,
-
         fee,
-
         startDate
       };
-
 
       setCourses([
         ...courses,
         newCourse
       ]);
 
-
-      alert(
-        "Course added successfully!"
+      showAlert(
+        "Course added successfully!",
+        "success"
       );
     }
 
@@ -191,39 +154,22 @@ function Courses() {
 
     if (role !== "admin") {
 
-      alert(
-        "Only Admin can edit courses"
+      showAlert(
+        "Only Admin can edit courses",
+        "warning"
       );
 
       return;
     }
 
-
     setEditId(course.id);
 
-    setCourseName(
-      course.courseName
-    );
-
-    setDescription(
-      course.description
-    );
-
-    setTrainer(
-      course.trainer
-    );
-
-    setDuration(
-      course.duration
-    );
-
-    setFee(
-      course.fee
-    );
-
-    setStartDate(
-      course.startDate
-    );
+    setCourseName(course.courseName);
+    setDescription(course.description);
+    setTrainer(course.trainer);
+    setDuration(course.duration);
+    setFee(course.fee);
+    setStartDate(course.startDate);
   };
 
 
@@ -235,8 +181,9 @@ function Courses() {
 
     if (role !== "admin") {
 
-      alert(
-        "Only Admin can delete courses"
+      showAlert(
+        "Only Admin can delete courses",
+        "warning"
       );
 
       return;
@@ -260,12 +207,11 @@ function Courses() {
           course.id !== id
       );
 
-
     setCourses(updatedCourses);
 
-
-    alert(
-      "Course deleted successfully!"
+    showAlert(
+      "Course deleted successfully!",
+      "success"
     );
   };
 
@@ -290,7 +236,6 @@ function Courses() {
   const filteredCourses =
     courses.filter(
       (course) =>
-
         course.courseName
           .toLowerCase()
           .includes(
@@ -322,8 +267,31 @@ function Courses() {
     <div className="courses-page">
 
       {/* =========================
-          PAGE HEADER
+          CUSTOM ALERT
       ========================= */}
+
+      {alertMessage && (
+
+        <div className={`courses-alert ${alertType}`}>
+
+          <span>
+            {alertMessage}
+          </span>
+
+          <button
+            onClick={() =>
+              setAlertMessage("")
+            }
+          >
+            ×
+          </button>
+
+        </div>
+
+      )}
+
+
+      {/* PAGE HEADER */}
 
       <div className="page-header">
 
@@ -340,28 +308,22 @@ function Courses() {
       </div>
 
 
-      {/* =========================
-          ADMIN FORM
-      ========================= */}
+      {/* ADMIN FORM */}
 
       {role === "admin" && (
 
         <div className="course-form-card">
 
           <h2>
-
             {editId
               ? "Edit Course"
               : "Add Course"}
-
           </h2>
 
 
           <form
             onSubmit={handleSubmit}
           >
-
-            {/* COURSE NAME */}
 
             <input
               type="text"
@@ -376,8 +338,6 @@ function Courses() {
             />
 
 
-            {/* DESCRIPTION */}
-
             <textarea
               placeholder="Course Description"
               value={description}
@@ -389,8 +349,6 @@ function Courses() {
               required
             />
 
-
-            {/* TRAINER */}
 
             <select
               value={trainer}
@@ -405,7 +363,6 @@ function Courses() {
               <option value="">
                 Select Trainer
               </option>
-
 
               {uniqueTrainers.length === 0 ? (
 
@@ -433,8 +390,6 @@ function Courses() {
             </select>
 
 
-            {/* DURATION */}
-
             <input
               type="text"
               placeholder="Duration (Example: 3 Months)"
@@ -447,8 +402,6 @@ function Courses() {
               required
             />
 
-
-            {/* FEE */}
 
             <input
               type="number"
@@ -463,8 +416,6 @@ function Courses() {
             />
 
 
-            {/* START DATE */}
-
             <input
               type="date"
               value={startDate}
@@ -476,8 +427,6 @@ function Courses() {
               required
             />
 
-
-            {/* SUBMIT */}
 
             <button type="submit">
 
@@ -494,9 +443,7 @@ function Courses() {
       )}
 
 
-      {/* =========================
-          NORMAL USER MESSAGE
-      ========================= */}
+      {/* NORMAL USER MESSAGE */}
 
       {role !== "admin" && (
 
@@ -512,9 +459,7 @@ function Courses() {
       )}
 
 
-      {/* =========================
-          SEARCH
-      ========================= */}
+      {/* SEARCH */}
 
       <div className="search-box">
 
@@ -532,15 +477,12 @@ function Courses() {
       </div>
 
 
-      {/* =========================
-          RESULT COUNT
-      ========================= */}
+      {/* RESULT COUNT */}
 
       <p className="result-count">
 
         Showing{" "}
         {filteredCourses.length}{" "}
-
         course
         {filteredCourses.length !== 1
           ? "s"
@@ -549,9 +491,7 @@ function Courses() {
       </p>
 
 
-      {/* =========================
-          COURSE TABLE
-      ========================= */}
+      {/* TABLE */}
 
       <div className="table-container">
 
@@ -561,36 +501,15 @@ function Courses() {
 
             <tr>
 
-              <th>
-                Course Name
-              </th>
-
-              <th>
-                Description
-              </th>
-
-              <th>
-                Trainer
-              </th>
-
-              <th>
-                Duration
-              </th>
-
-              <th>
-                Fee
-              </th>
-
-              <th>
-                Start Date
-              </th>
+              <th>Course Name</th>
+              <th>Description</th>
+              <th>Trainer</th>
+              <th>Duration</th>
+              <th>Fee</th>
+              <th>Start Date</th>
 
               {role === "admin" && (
-
-                <th>
-                  Action
-                </th>
-
+                <th>Action</th>
               )}
 
             </tr>
@@ -621,9 +540,7 @@ function Courses() {
               filteredCourses.map(
                 (course) => (
 
-                  <tr
-                    key={course.id}
-                  >
+                  <tr key={course.id}>
 
                     <td>
                       {course.courseName}
@@ -657,9 +574,7 @@ function Courses() {
                         <button
                           className="edit-btn"
                           onClick={() =>
-                            handleEdit(
-                              course
-                            )
+                            handleEdit(course)
                           }
                         >
                           Edit

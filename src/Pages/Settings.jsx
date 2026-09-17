@@ -12,6 +12,25 @@ function Settings() {
 
 
   // =========================
+  // CUSTOM ALERT
+  // =========================
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("success");
+
+  const showAlert = (message, type = "success") => {
+
+    setAlertMessage(message);
+    setAlertType(type);
+
+    setTimeout(() => {
+      setAlertMessage("");
+    }, 2500);
+
+  };
+
+
+  // =========================
   // USERNAME
   // =========================
 
@@ -52,21 +71,38 @@ function Settings() {
     e.preventDefault();
 
     if (newUsername.trim() === "") {
-      alert("Username cannot be empty");
+
+      showAlert(
+        "Username cannot be empty",
+        "warning"
+      );
+
       return;
     }
+
 
     const success =
       updateUsername(
         newUsername.trim()
       );
 
+
     if (!success) {
-      alert("Username already exists");
+
+      showAlert(
+        "Username already exists",
+        "error"
+      );
+
       return;
     }
 
-    alert("Username updated successfully!");
+
+    showAlert(
+      "Username updated successfully!",
+      "success"
+    );
+
   };
 
 
@@ -83,21 +119,37 @@ function Settings() {
       newPassword === "" ||
       confirmPassword === ""
     ) {
-      alert("Please fill all password fields");
+
+      showAlert(
+        "Please fill all password fields",
+        "warning"
+      );
+
       return;
     }
+
 
     if (newPassword !== confirmPassword) {
-      alert("New passwords do not match");
+
+      showAlert(
+        "New passwords do not match",
+        "error"
+      );
+
       return;
     }
 
+
     if (newPassword.length < 6) {
-      alert(
-        "Password must be at least 6 characters"
+
+      showAlert(
+        "Password must be at least 6 characters",
+        "warning"
       );
+
       return;
     }
+
 
     const result =
       changePassword(
@@ -105,21 +157,39 @@ function Settings() {
         newPassword
       );
 
+
     if (result === "wrong_password") {
-      alert("Current password is incorrect");
+
+      showAlert(
+        "Current password is incorrect",
+        "error"
+      );
+
       return;
     }
+
 
     if (result === "not_logged_in") {
-      alert("Please login again");
+
+      showAlert(
+        "Please login again",
+        "warning"
+      );
+
       return;
     }
 
-    alert("Password changed successfully!");
+
+    showAlert(
+      "Password changed successfully!",
+      "success"
+    );
+
 
     setCurrentPassword("");
     setNewPassword("");
     setConfirmPassword("");
+
   };
 
 
@@ -136,21 +206,56 @@ function Settings() {
       selectedTheme
     );
 
+
     if (selectedTheme === "dark") {
+
       document.body.classList.add(
         "dark-mode"
       );
+
     } else {
+
       document.body.classList.remove(
         "dark-mode"
       );
+
     }
+
   };
 
 
   return (
 
     <div className="settings-page">
+
+
+      {/* =========================
+          CUSTOM ALERT
+         ========================= */}
+
+      {alertMessage && (
+
+        <div
+          className={`settings-alert ${alertType}`}
+        >
+
+          <span>
+            {alertMessage}
+          </span>
+
+
+          <button
+            onClick={() =>
+              setAlertMessage("")
+            }
+          >
+            ×
+          </button>
+
+        </div>
+
+      )}
+
 
       {/* =========================
           HEADER
@@ -182,6 +287,7 @@ function Settings() {
         <p className="settings-description">
           Update your username.
         </p>
+
 
         <form
           onSubmit={handleUsernameUpdate}
@@ -247,6 +353,7 @@ function Settings() {
         <p className="settings-description">
           Change your account password.
         </p>
+
 
         <form
           onSubmit={handlePasswordChange}
@@ -373,6 +480,7 @@ function Settings() {
       </div>
 
     </div>
+
   );
 }
 

@@ -4,7 +4,6 @@ import "./Trainers.css";
 
 function Trainers() {
 
-  // Get user role from AuthContext
   const { role } = useContext(AuthContext);
 
   // Trainer form states
@@ -13,34 +12,50 @@ function Trainers() {
   const [phone, setPhone] = useState("");
   const [subject, setSubject] = useState("");
 
-  // Trainers from LocalStorage
+  // Trainers
   const [trainers, setTrainers] = useState(
     JSON.parse(localStorage.getItem("trainers")) || []
   );
 
-  // Edit trainer ID
   const [editId, setEditId] = useState(null);
 
   // Search
   const [search, setSearch] = useState("");
 
-  // Selected trainer for attendance
+  // Selected trainer
   const [selectedTrainer, setSelectedTrainer] = useState(null);
 
-  // Students from LocalStorage
+  // Students
   const [students] = useState(
     JSON.parse(localStorage.getItem("students")) || []
   );
 
-  // Attendance records from LocalStorage
+  // Attendance
   const [attendance, setAttendance] = useState(
     JSON.parse(localStorage.getItem("attendance")) || []
   );
 
-  // Default date = Today
+  // Default date
   const [attendanceDate, setAttendanceDate] = useState(
     new Date().toISOString().split("T")[0]
   );
+
+  // =========================
+  // CUSTOM ALERT
+  // =========================
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("success");
+
+  const showAlert = (message, type = "success") => {
+
+    setAlertMessage(message);
+    setAlertType(type);
+
+    setTimeout(() => {
+      setAlertMessage("");
+    }, 2500);
+  };
 
 
   // =========================
@@ -51,25 +66,29 @@ function Trainers() {
 
     e.preventDefault();
 
-    // Only admin can add/update
     if (role !== "admin") {
-      alert("Only Admin can add or update trainers");
+
+      showAlert(
+        "Only Admin can add or update trainers",
+        "warning"
+      );
+
       return;
     }
 
-    // Edit existing trainer
     if (editId) {
 
-      const updatedTrainers = trainers.map((trainer) =>
-        trainer.id === editId
-          ? {
-              ...trainer,
-              name,
-              email,
-              phone,
-              subject
-            }
-          : trainer
+      const updatedTrainers = trainers.map(
+        (trainer) =>
+          trainer.id === editId
+            ? {
+                ...trainer,
+                name,
+                email,
+                phone,
+                subject
+              }
+            : trainer
       );
 
       setTrainers(updatedTrainers);
@@ -79,14 +98,14 @@ function Trainers() {
         JSON.stringify(updatedTrainers)
       );
 
-      alert("Trainer updated successfully!");
+      showAlert(
+        "Trainer updated successfully!",
+        "success"
+      );
 
       setEditId(null);
 
-    }
-
-    // Add new trainer
-    else {
+    } else {
 
       const newTrainer = {
         id: Date.now(),
@@ -108,10 +127,12 @@ function Trainers() {
         JSON.stringify(updatedTrainers)
       );
 
-      alert("Trainer added successfully!");
+      showAlert(
+        "Trainer added successfully!",
+        "success"
+      );
     }
 
-    // Clear form
     setName("");
     setEmail("");
     setPhone("");
@@ -126,7 +147,12 @@ function Trainers() {
   const handleEdit = (trainer) => {
 
     if (role !== "admin") {
-      alert("Only Admin can edit trainers");
+
+      showAlert(
+        "Only Admin can edit trainers",
+        "warning"
+      );
+
       return;
     }
 
@@ -146,7 +172,12 @@ function Trainers() {
   const handleDelete = (id) => {
 
     if (role !== "admin") {
-      alert("Only Admin can delete trainers");
+
+      showAlert(
+        "Only Admin can delete trainers",
+        "warning"
+      );
+
       return;
     }
 
@@ -169,7 +200,10 @@ function Trainers() {
       JSON.stringify(updatedTrainers)
     );
 
-    alert("Trainer deleted successfully!");
+    showAlert(
+      "Trainer deleted successfully!",
+      "success"
+    );
   };
 
 
@@ -184,7 +218,7 @@ function Trainers() {
 
 
   // =========================
-  // STUDENTS OF SELECTED TRAINER
+  // STUDENTS OF TRAINER
   // =========================
 
   const trainerStudents = selectedTrainer
@@ -201,23 +235,22 @@ function Trainers() {
 
   const markAttendance = (studentId, status) => {
 
-    // Only admin can mark attendance
     if (role !== "admin") {
-      alert("Only Admin can mark attendance");
+
+      showAlert(
+        "Only Admin can mark attendance",
+        "warning"
+      );
+
       return;
     }
 
-    // Check existing attendance
     const existingAttendance = attendance.find(
       (item) =>
         item.studentId === studentId &&
         item.date === attendanceDate
     );
 
-
-    // =========================
-    // UPDATE EXISTING ATTENDANCE
-    // =========================
 
     if (existingAttendance) {
 
@@ -239,13 +272,14 @@ function Trainers() {
         JSON.stringify(updatedAttendance)
       );
 
+      showAlert(
+        "Attendance updated successfully!",
+        "success"
+      );
+
       return;
     }
 
-
-    // =========================
-    // ADD NEW ATTENDANCE
-    // =========================
 
     const newAttendance = {
       id: Date.now(),
@@ -265,6 +299,11 @@ function Trainers() {
     localStorage.setItem(
       "attendance",
       JSON.stringify(updatedAttendance)
+    );
+
+    showAlert(
+      "Attendance marked successfully!",
+      "success"
     );
   };
 
@@ -294,28 +333,50 @@ function Trainers() {
 
 
   return (
+
     <div className="trainers-page">
 
-      {/* =========================
-          PAGE TITLE
-      ========================= */}
+      {/* CUSTOM ALERT */}
+
+      {alertMessage && (
+
+        <div className={`trainers-alert ${alertType}`}>
+
+          <span>
+            {alertMessage}
+          </span>
+
+          <button
+            onClick={() =>
+              setAlertMessage("")
+            }
+          >
+            ×
+          </button>
+
+        </div>
+
+      )}
+
+
+      {/* PAGE TITLE */}
 
       <div className="page-header">
 
         <div>
+
           <h1>Trainers</h1>
 
           <p>
             Manage academy trainers
           </p>
+
         </div>
 
       </div>
 
 
-      {/* =========================
-          ADMIN FORM
-      ========================= */}
+      {/* ADMIN FORM */}
 
       {role === "admin" && (
 
@@ -327,10 +388,7 @@ function Trainers() {
               : "Add Trainer"}
           </h2>
 
-
           <form onSubmit={handleSubmit}>
-
-            {/* Name */}
 
             <input
               type="text"
@@ -342,9 +400,6 @@ function Trainers() {
               required
             />
 
-
-            {/* Email */}
-
             <input
               type="email"
               placeholder="Email"
@@ -354,9 +409,6 @@ function Trainers() {
               }
               required
             />
-
-
-            {/* Phone */}
 
             <input
               type="text"
@@ -368,9 +420,6 @@ function Trainers() {
               required
             />
 
-
-            {/* Subject */}
-
             <input
               type="text"
               placeholder="Subject"
@@ -380,9 +429,6 @@ function Trainers() {
               }
               required
             />
-
-
-            {/* Submit */}
 
             <button type="submit">
 
@@ -399,9 +445,7 @@ function Trainers() {
       )}
 
 
-      {/* =========================
-          NORMAL USER MESSAGE
-      ========================= */}
+      {/* NORMAL USER MESSAGE */}
 
       {role !== "admin" && (
 
@@ -417,9 +461,7 @@ function Trainers() {
       )}
 
 
-      {/* =========================
-          SEARCH
-      ========================= */}
+      {/* SEARCH */}
 
       <div className="search-box">
 
@@ -435,9 +477,7 @@ function Trainers() {
       </div>
 
 
-      {/* =========================
-          TRAINER TABLE
-      ========================= */}
+      {/* TABLE */}
 
       <div className="table-container">
 
@@ -448,11 +488,8 @@ function Trainers() {
             <tr>
 
               <th>Name</th>
-
               <th>Email</th>
-
               <th>Phone</th>
-
               <th>Subject</th>
 
               {role === "admin" && (
@@ -462,7 +499,6 @@ function Trainers() {
             </tr>
 
           </thead>
-
 
           <tbody>
 
@@ -489,28 +525,18 @@ function Trainers() {
 
                   <tr key={trainer.id}>
 
-                    <td>
-                      {trainer.name}
-                    </td>
+                    <td>{trainer.name}</td>
 
-                    <td>
-                      {trainer.email}
-                    </td>
+                    <td>{trainer.email}</td>
 
-                    <td>
-                      {trainer.phone}
-                    </td>
+                    <td>{trainer.phone}</td>
 
-                    <td>
-                      {trainer.subject}
-                    </td>
+                    <td>{trainer.subject}</td>
 
 
                     {role === "admin" && (
 
                       <td>
-
-                        {/* Edit */}
 
                         <button
                           className="edit-btn"
@@ -521,20 +547,16 @@ function Trainers() {
                           Edit
                         </button>
 
-
-                        {/* Delete */}
-
                         <button
                           className="delete-btn"
                           onClick={() =>
-                            handleDelete(trainer.id)
+                            handleDelete(
+                              trainer.id
+                            )
                           }
                         >
                           Delete
                         </button>
-
-
-                        {/* Attendance */}
 
                         <button
                           className="attendance-btn"
@@ -563,9 +585,7 @@ function Trainers() {
       </div>
 
 
-      {/* =========================
-          ATTENDANCE SECTION
-      ========================= */}
+      {/* ATTENDANCE */}
 
       {selectedTrainer && (
 
@@ -588,8 +608,6 @@ function Trainers() {
           </div>
 
 
-          {/* DATE */}
-
           <div className="attendance-date">
 
             <label>
@@ -609,15 +627,10 @@ function Trainers() {
           </div>
 
 
-          {/* STUDENTS */}
-
           {trainerStudents.length === 0 ? (
 
             <p className="no-students">
-
-              No students assigned to this
-              trainer.
-
+              No students assigned to this trainer.
             </p>
 
           ) : (
@@ -646,14 +659,10 @@ function Trainers() {
 
                 </thead>
 
-
                 <tbody>
 
                   {trainerStudents.map(
                     (student) => {
-
-                      // Find attendance for selected
-                      // student and selected date
 
                       const currentAttendance =
                         attendance.find(
@@ -663,7 +672,6 @@ function Trainers() {
                             item.date ===
                               attendanceDate
                         );
-
 
                       return (
 
@@ -711,7 +719,6 @@ function Trainers() {
                         </tr>
 
                       );
-
                     }
                   )}
 

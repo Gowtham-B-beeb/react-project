@@ -19,6 +19,32 @@ function Login() {
   const [password, setPassword] =
     useState("");
 
+  // Custom Alert
+  const [alertMessage, setAlertMessage] =
+    useState("");
+
+  const [alertType, setAlertType] =
+    useState("error");
+
+
+  // =========================
+  // SHOW ALERT
+  // =========================
+
+  const showAlert = (message, type = "error") => {
+
+    setAlertMessage(message);
+    setAlertType(type);
+
+    setTimeout(() => {
+      setAlertMessage("");
+    }, 2500);
+  };
+
+
+  // =========================
+  // LOGIN
+  // =========================
 
   const handleLogin = (e) => {
 
@@ -29,7 +55,10 @@ function Login() {
       password === ""
     ) {
 
-      alert("Please fill all fields");
+      showAlert(
+        "Please fill all fields",
+        "warning"
+      );
 
       return;
     }
@@ -44,18 +73,24 @@ function Login() {
 
     if (!success) {
 
-      alert(
-        "Invalid Username/Email or Password"
+      showAlert(
+        "Invalid Username/Email or Password",
+        "error"
       );
 
       return;
     }
 
 
- 
+    showAlert(
+      "Login successful!",
+      "success"
+    );
 
-    
-    navigate("/dashboard");
+
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 1000);
 
   };
 
@@ -63,6 +98,31 @@ function Login() {
   return (
 
     <div className="auth-container">
+
+      {/* =========================
+          CUSTOM ALERT
+      ========================= */}
+
+      {alertMessage && (
+
+        <div className={`login-alert ${alertType}`}>
+
+          <span>
+            {alertMessage}
+          </span>
+
+          <button
+            onClick={() =>
+              setAlertMessage("")
+            }
+          >
+            ×
+          </button>
+
+        </div>
+
+      )}
+
 
       <div className="auth-box">
 

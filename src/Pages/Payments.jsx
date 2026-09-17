@@ -20,6 +20,25 @@ function Payments() {
   const [editId, setEditId] = useState(null);
 
 
+  // =========================
+  // CUSTOM ALERT
+  // =========================
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("success");
+
+  const showAlert = (message, type = "success") => {
+
+    setAlertMessage(message);
+    setAlertType(type);
+
+    setTimeout(() => {
+      setAlertMessage("");
+    }, 2500);
+
+  };
+
+
   // SAVE TO LOCAL STORAGE
 
   useEffect(() => {
@@ -43,7 +62,12 @@ function Payments() {
       amount === "" ||
       date === ""
     ) {
-      alert("Please fill all fields");
+
+      showAlert(
+        "Please fill all fields",
+        "warning"
+      );
+
       return;
     }
 
@@ -65,7 +89,10 @@ function Payments() {
 
       setPayments(updatedPayments);
 
-      alert("Payment updated successfully!");
+      showAlert(
+        "Payment updated successfully!",
+        "success"
+      );
 
       setEditId(null);
 
@@ -90,7 +117,10 @@ function Payments() {
         newPayment
       ]);
 
-      alert("Payment added successfully!");
+      showAlert(
+        "Payment added successfully!",
+        "success"
+      );
 
     }
 
@@ -137,6 +167,11 @@ function Payments() {
 
     setPayments(updatedPayments);
 
+    showAlert(
+      "Payment deleted successfully!",
+      "success"
+    );
+
   };
 
 
@@ -171,6 +206,34 @@ function Payments() {
 
     <div className="payments-page">
 
+
+      {/* =========================
+          CUSTOM ALERT
+      ========================= */}
+
+      {alertMessage && (
+
+        <div
+          className={`payments-alert ${alertType}`}
+        >
+
+          <span>
+            {alertMessage}
+          </span>
+
+          <button
+            onClick={() =>
+              setAlertMessage("")
+            }
+          >
+            ×
+          </button>
+
+        </div>
+
+      )}
+
+
       {/* HEADER */}
 
       <div className="payments-header">
@@ -186,6 +249,7 @@ function Payments() {
           </p>
 
         </div>
+
 
         <div className="total-payment">
 
@@ -213,11 +277,13 @@ function Payments() {
           }
         </h2>
 
+
         <form
           onSubmit={handleSubmit}
         >
 
           <div className="payment-form-grid">
+
 
             {/* STUDENT */}
 
@@ -330,6 +396,7 @@ function Payments() {
               }
             </button>
 
+
             <button
               type="button"
               className="clear-payment-btn"
@@ -352,6 +419,7 @@ function Payments() {
         <h2>
           Payment Records
         </h2>
+
 
         {payments.length === 0 ? (
 
@@ -397,6 +465,7 @@ function Payments() {
 
               </thead>
 
+
               <tbody>
 
                 {payments.map(
@@ -436,6 +505,7 @@ function Payments() {
 
                       </td>
 
+
                       <td>
 
                         <button
@@ -448,6 +518,7 @@ function Payments() {
                         >
                           Edit
                         </button>
+
 
                         <button
                           className="payment-delete-btn"
@@ -478,6 +549,7 @@ function Payments() {
       </div>
 
     </div>
+
   );
 }
 
